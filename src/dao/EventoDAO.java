@@ -68,36 +68,6 @@ public class EventoDAO {
 		
 	}
 	
-	public Eventos buscarEvento(int idEvento){
-		
-		Eventos e = new Eventos();
-		
-		String sql = "Select * from Eventos e where e.idEvento =?";
-		
-		try {
-			pstm = c.prepareStatement(sql);
-			pstm.setInt(1, idEvento);
-			rs = pstm.executeQuery();
-			
-			pstm.close();
-			c.close();
-			
-			while(rs.next()) {
-				e.setIdEvento(rs.getInt("idEvento"));
-				e.setNomeEvento(rs.getString("nomeEvento"));
-				e.setClientes_idCliente(rs.getInt("Clientes_idCliente"));
-				e.setIngressos_idIngresso(rs.getInt("Ingressos_idIngresso"));
-			}
-			
-			return e;
-		
-		}catch(SQLException sqe) {
-			sqe.printStackTrace();
-		}
-		
-		return null;
-	}
-	
 	public ArrayList<Clientes> listarClientesPorEvento(int codigoDoEvento) {
 		listaClientesPorEvento = new ArrayList<>();
 		

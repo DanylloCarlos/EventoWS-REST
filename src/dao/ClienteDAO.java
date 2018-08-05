@@ -47,24 +47,6 @@ public class ClienteDAO {
 			
 	}
 	
-	public void removerCliente(Clientes cli){
-	
-		String sql = "Delete from Clientes c where c.idCliente = ?";
-		
-		try {
-			pstm = c.prepareStatement(sql);
-			pstm.setInt(1, cli.getIdCliente());
-			pstm.executeQuery();
-			
-			pstm.close();
-			c.close();
-			
-		}catch(SQLException sqe) {
-			sqe.printStackTrace();
-		}
-		
-	}
-	
 	public Clientes buscarCliente(String cpf){
 		Clientes cli = new Clientes();
 		
@@ -79,7 +61,6 @@ public class ClienteDAO {
 			c.close();
 			
 			while(rs.next()) {
-				cli.setIdCliente(rs.getInt("idCliente"));
 				cli.setNomeCliente(rs.getString("nomeCliente"));
 				cli.setCpf(rs.getString("cpf"));
 				
@@ -102,7 +83,6 @@ public class ClienteDAO {
 			
 			while(rs.next()){
 				Clientes clientes = new Clientes();
-				clientes.setIdCliente(rs.getInt("idCliente"));
 				clientes.setNomeCliente(rs.getString("nomeCliente"));
 				clientes.setCpf(rs.getString("cpf"));
 				listaDeClientes.add(clientes);
@@ -118,3 +98,4 @@ public class ClienteDAO {
 		
 	}
 }
+
