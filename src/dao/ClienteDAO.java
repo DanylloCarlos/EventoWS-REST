@@ -25,7 +25,7 @@ public class ClienteDAO {
 		}
 	}
 	
-	public void cadastrarCliente(String nome, String cpf, int idEvento){
+	public void cadastrarCliente(String nome, int cpf, int idEvento){
 		
 		String sql = "Insert into Clientes (nomeCliente, cpf, Eventos_idEvento) values (?, ?, ?)";
 		
@@ -33,7 +33,7 @@ public class ClienteDAO {
 			pstm = c.prepareStatement(sql);
 			
 			pstm.setString(1, nome);
-			pstm.setString(2, cpf);
+			pstm.setInt(2, cpf);
 			pstm.setInt(3, idEvento);
 			
 			pstm.executeUpdate();
@@ -47,14 +47,14 @@ public class ClienteDAO {
 			
 	}
 	
-	public Clientes buscarCliente(String cpf){
+	public Clientes buscarCliente(int cpf){
 		Clientes cli = new Clientes();
 		
 		String sql = "Select * from Clientes c where c.cpf= ?";
 		
 		try {
 			pstm = c.prepareStatement(sql);
-			pstm.setString(1, cpf);
+			pstm.setInt(1, cpf);
 			rs = pstm.getResultSet();
 			
 			pstm.close();
@@ -62,7 +62,7 @@ public class ClienteDAO {
 			
 			while(rs.next()) {
 				cli.setNomeCliente(rs.getString("nomeCliente"));
-				cli.setCpf(rs.getString("cpf"));
+				cli.setCpf(rs.getInt("cpf"));
 				
 			}
 			
@@ -84,7 +84,7 @@ public class ClienteDAO {
 			while(rs.next()){
 				Clientes clientes = new Clientes();
 				clientes.setNomeCliente(rs.getString("nomeCliente"));
-				clientes.setCpf(rs.getString("cpf"));
+				clientes.setCpf(rs.getInt("cpf"));
 				listaDeClientes.add(clientes);
 			}
 			pstm.close();

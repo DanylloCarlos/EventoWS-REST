@@ -6,7 +6,7 @@ public class Clientes implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	String nomeCliente;
-	String cpf;
+	int cpf;
 	
 	public String getNomeCliente() {
 		return nomeCliente;
@@ -16,11 +16,11 @@ public class Clientes implements Serializable {
 		this.nomeCliente = nome;
 	}
 
-	public String getCpf() {
+	public int getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public void setCpf(int cpf) {
 		this.cpf = cpf;
 	}
 	

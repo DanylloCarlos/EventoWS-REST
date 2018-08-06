@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import dao.ClienteDAO;
 import dao.EventoDAO;
 import modelo.Clientes;
 
@@ -31,4 +32,17 @@ public class ClientesPorEventoWebService {
 		return listaClientesDAO;
 		
 		}
+	
+	@GET
+	@Path("cpfCliente/{cpf}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Clientes buscarCliente(@PathParam("cpf") int cpf) {
+		
+		ClienteDAO cliDAO = new ClienteDAO();
+		
+		cliente = cliDAO.buscarCliente(cpf);
+		
+		return cliente;
 	}
+	
+}
