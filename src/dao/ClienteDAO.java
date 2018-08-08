@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,14 +48,14 @@ public class ClienteDAO {
 			
 	}
 	
-	public Clientes buscarCliente(int cpf){
+	public Clientes buscarCliente(BigDecimal cpf){
 		Clientes cli = new Clientes();
 		
 		String sql = "Select * from Clientes c where c.cpf= ?";
 		
 		try {
 			pstm = c.prepareStatement(sql);
-			pstm.setInt(1, cpf);
+			pstm.setBigDecimal(1, cpf);
 			rs = pstm.getResultSet();
 			
 			pstm.close();
@@ -62,7 +63,7 @@ public class ClienteDAO {
 			
 			while(rs.next()) {
 				cli.setNomeCliente(rs.getString("nomeCliente"));
-				cli.setCpf(rs.getInt("cpf"));
+				cli.setCpf(rs.getBigDecimal("cpf"));
 				
 			}
 			
@@ -84,7 +85,7 @@ public class ClienteDAO {
 			while(rs.next()){
 				Clientes clientes = new Clientes();
 				clientes.setNomeCliente(rs.getString("nomeCliente"));
-				clientes.setCpf(rs.getInt("cpf"));
+				clientes.setCpf(rs.getBigDecimal("cpf"));
 				listaDeClientes.add(clientes);
 			}
 			pstm.close();

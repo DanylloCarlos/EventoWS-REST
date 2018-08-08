@@ -84,7 +84,7 @@ public class EventoDAO {
 					Clientes cli = new Clientes();
 					
 					cli.setNomeCliente(rs.getString("nomeCliente"));
-					cli.setCpf(rs.getInt("cpf"));
+					cli.setCpf(rs.getBigDecimal("cpf"));
 					
 					listaClientesPorEvento.add(cli);
 				}

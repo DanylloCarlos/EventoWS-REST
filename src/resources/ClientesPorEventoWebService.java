@@ -1,5 +1,6 @@
 package resources;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.ws.rs.GET;
@@ -22,11 +23,11 @@ public class ClientesPorEventoWebService {
 	@GET
 	@Path("codigoEvento/{codEvento}")
 	@Produces(MediaType.APPLICATION_JSON)
-	
 	public ArrayList<Clientes> listarClientesPorEvento(@PathParam("codEvento") int codEvento){
 		
 		EventoDAO eventoDAO = new EventoDAO();
 		
+		listaClientesDAO = new ArrayList<>();
 		listaClientesDAO = eventoDAO.listarClientesPorEvento(codEvento);
 		
 		return listaClientesDAO;
@@ -36,7 +37,7 @@ public class ClientesPorEventoWebService {
 	@GET
 	@Path("cpfCliente/{cpf}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Clientes buscarCliente(@PathParam("cpf") int cpf) {
+	public Clientes buscarCliente(@PathParam("cpf") BigDecimal cpf) {
 		
 		ClienteDAO cliDAO = new ClienteDAO();
 		
