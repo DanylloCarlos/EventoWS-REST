@@ -79,14 +79,17 @@ public class EventoDAO {
 				pstm.setInt(1, codigoDoEvento);
 				rs = pstm.executeQuery();
 				
+				int i = 1;
+				
 				while(rs.next()){
-
+					
 					Clientes cli = new Clientes();
 					
 					cli.setNomeCliente(rs.getString("nomeCliente"));
-					cli.setCpf(rs.getBigDecimal("cpf"));
+					cli.setCpf(rs.getString("cpf"));
 					
 					listaClientesPorEvento.add(cli);
+					
 				}
 				
 				pstm.close();

@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-	@ApplicationPath("eventoservice")
+	@ApplicationPath("evento-webservices")
 	public class ApplicationConfig extends Application {
 
 	    public Set<Class<?>> getClasses() {
@@ -17,7 +17,8 @@ import javax.ws.rs.core.Application;
 	    
 	    private void addRestResourceClasses(Set<Class<?>> resources){
 	    	
-	    	resources.add(ClientesPorEventoWebService.class);
+	    	resources.add(ServicosClienteWebService.class);
+	    	resources.add(ServicosEventoWebService.class);
 	    }
 	    
 	}

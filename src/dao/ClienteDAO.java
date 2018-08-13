@@ -13,9 +13,10 @@ import util.ConexaoBD;
 public class ClienteDAO {
 	private Connection c;
 	private PreparedStatement pstm;
-	private ResultSet rs;
+	private ResultSet rs = null;
 	private String sql;
 	ArrayList<Clientes> listaDeClientes;
+	Clientes cli = new Clientes();
 	
 	public ClienteDAO(){
 		try {
@@ -26,7 +27,7 @@ public class ClienteDAO {
 		}
 	}
 	
-	public void cadastrarCliente(String nome, int cpf, int idEvento){
+	public void cadastrarCliente(String nome, BigDecimal cpf, int idEvento){
 		
 		String sql = "Insert into Clientes (nomeCliente, cpf, Eventos_idEvento) values (?, ?, ?)";
 		
@@ -34,7 +35,7 @@ public class ClienteDAO {
 			pstm = c.prepareStatement(sql);
 			
 			pstm.setString(1, nome);
-			pstm.setInt(2, cpf);
+			pstm.setBigDecimal(2, cpf);
 			pstm.setInt(3, idEvento);
 			
 			pstm.executeUpdate();
@@ -48,30 +49,47 @@ public class ClienteDAO {
 			
 	}
 	
-	public Clientes buscarCliente(BigDecimal cpf){
+	public Clientes buscarCliente(String cpf){
 		Clientes cli = new Clientes();
-		
 		String sql = "Select * from Clientes c where c.cpf= ?";
 		
 		try {
 			pstm = c.prepareStatement(sql);
-			pstm.setBigDecimal(1, cpf);
-			rs = pstm.getResultSet();
+			pstm.setString(1, cpf);
 			
-			pstm.close();
-			c.close();
+			rs = pstm.executeQuery();
 			
-			while(rs.next()) {
-				cli.setNomeCliente(rs.getString("nomeCliente"));
-				cli.setCpf(rs.getBigDecimal("cpf"));
+				do {
+					
+					if(rs.first() == false) {
+						System.out.println();
+						System.out.println("Cliente não cadastrado no sistema!");
+					
+					}else {
+						
+						cli.setNomeCliente(rs.getString("nomeCliente"));
+						cli.setCpf(rs.getString("cpf"));
+						
+						System.out.println();
+						System.out.println("Cliente encontrado!");
+						System.out.println();
+						System.out.println("Nome do cliente: "+cli.getNomeCliente());
+						System.out.println("CPF do Cliente: "+cli.getCpf());
+						System.out.println();
+					}
+						
+				}while(rs.next());
 				
-			}
-			
-		}catch(SQLException sqe) {
-			sqe.printStackTrace();
+					pstm.close();
+					c.close();
+				
+		}catch(SQLException | NullPointerException ex) {
+			System.out.println("Cliente não encontrado ou erro no sistema");
+			ex.printStackTrace();
 		}
 		
 		return cli;
+		
 	}
 	
 	public ArrayList<Clientes> listarClientes(){
@@ -84,8 +102,7 @@ public class ClienteDAO {
 			
 			while(rs.next()){
 				Clientes clientes = new Clientes();
-				clientes.setNomeCliente(rs.getString("nomeCliente"));
-				clientes.setCpf(rs.getBigDecimal("cpf"));
+				
 				listaDeClientes.add(clientes);
 			}
 			pstm.close();

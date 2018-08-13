@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 public class Clientes implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	String nomeCliente;
-	BigDecimal cpf;
+	String nomeCliente = "";
+	String cpf = "";
 	
 	public String getNomeCliente() {
 		return nomeCliente;
@@ -17,11 +17,11 @@ public class Clientes implements Serializable {
 		this.nomeCliente = nome;
 	}
 
-	public BigDecimal getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(BigDecimal cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	
